@@ -4,10 +4,10 @@
 		"ghcr.io/devcontainers/features/terraform:1": {
 			"version": "latest",
 			"tflint": "latest",
-			"terragrunt": "latest"
+			"terragrunt": "v0.45.16"
 		},
 		"ghcr.io/devcontainers-contrib/features/terraform-asdf:2": {
-			"version": "latest"
+			"version": "v1.4.6"
 		},
 		"ghcr.io/devcontainers-contrib/features/terraform-ls-asdf:2": {
 			"version": "latest"
