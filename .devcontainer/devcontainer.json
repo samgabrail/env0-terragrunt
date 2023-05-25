@@ -1,0 +1,25 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"features": {
+		"ghcr.io/devcontainers/features/terraform:1": {
+			"version": "latest",
+			"tflint": "latest",
+			"terragrunt": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/terraform-asdf:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/terraform-ls-asdf:2": {
+			"version": "latest"
+		},
+		"ghcr.io/dhoeric/features/terraform-docs:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"hashicorp.terraform",
+				"shd101wyy.markdown-preview-enhanced"
+			]
+		}
+	}
+}
