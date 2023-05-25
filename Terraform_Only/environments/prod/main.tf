@@ -1,5 +1,15 @@
+terraform {
+  backend "s3" {
+    bucket         = "tekanaid-terragrunt-demo"
+    key            = "wordpress/prod/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "my-lock-table"
+  }
+}
+
 module aws_wordpress {
-    source              = "./modules/wordpress"
+    source              = "../../modules/wordpress"
     database_name           = "wordpress_db"   // database name
     database_user           = "wordpress_user" //database username
     // Password here will be used to create master db user.It should be chnaged later
