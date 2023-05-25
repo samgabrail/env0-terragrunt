@@ -1,3 +1,7 @@
+terraform {
+  backend "s3" {}
+}
+
 provider "aws" {
   region = var.region
 }
@@ -75,18 +79,18 @@ resource "aws_instance" "wordpress" {
 }
 
 resource "aws_db_instance" "wordpress" {
-  allocated_storage    = 20
-  storage_type         = "gp2"
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = var.db_instance_class
-  name                 = "wordpress"
-  username             = "admin"
-  password             = var.db_password
-  parameter_group_name = "default.mysql5.7"
-  publicly_accessible  = false
+  allocated_storage      = 20
+  storage_type           = "gp2"
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = var.db_instance_class
+  username               = "admin"
+  password               = var.db_password
+  parameter_group_name   = "default.mysql5.7"
+  publicly_accessible    = false
   vpc_security_group_ids = [aws_security_group.wordpress.id]
-  subnet_group_name    = aws_db_subnet_group.wordpress.name
+  db_subnet_group_name   = aws_db_subnet_group.wordpress.name
+  skip_final_snapshot    = true
   tags = {
     Name = "${var.environment}-wordpress-rds"
   }
@@ -97,7 +101,7 @@ resource "aws_db_subnet_group" "wordpress" {
   subnet_ids = aws_subnet.public.*.id
 }
 
-resource "aws_s3_bucket" "wordpress" {
-  bucket = "${var.environment}-wordpress-bucket"
-  acl    = "private"
-}
+# resource "aws_s3_bucket" "wordpress" {
+#   bucket = "${var.environment}-wordpress-bucket"
+#   acl    = "private"
+# }
