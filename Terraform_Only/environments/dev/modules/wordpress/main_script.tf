@@ -1,7 +1,5 @@
 provider "aws" {
-
-  region                  = var.region
-  profile                  = "default"
+  region = var.region
 }
 
 
@@ -130,7 +128,7 @@ resource "aws_security_group" "RDS_allow_rule" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.ec2_allow_rule.id}"]
+    security_groups = [aws_security_group.ec2_allow_rule.id]
   }
   # Allow all outbound traffic.
   egress {
@@ -147,7 +145,7 @@ resource "aws_security_group" "RDS_allow_rule" {
 
 # Create RDS Subnet group
 resource "aws_db_subnet_group" "RDS_subnet_grp" {
-  subnet_ids = ["${aws_subnet.prod-subnet-private-1.id}", "${aws_subnet.prod-subnet-private-2.id}"]
+  subnet_ids = [aws_subnet.prod-subnet-private-1.id, aws_subnet.prod-subnet-private-2.id]
 }
 
 # Create RDS instance
@@ -157,16 +155,16 @@ resource "aws_db_instance" "wordpressdb" {
   engine_version         = "5.7"
   instance_class         = var.instance_class
   db_subnet_group_name   = aws_db_subnet_group.RDS_subnet_grp.id
-  vpc_security_group_ids = ["${aws_security_group.RDS_allow_rule.id}"]
-  db_name                   = var.database_name
+  vpc_security_group_ids = [aws_security_group.RDS_allow_rule.id]
+  db_name                = var.database_name
   username               = var.database_user
   password               = var.database_password
   skip_final_snapshot    = true
 
- # make sure rds manual password chnages is ignored
+  # make sure rds manual password changes is ignored
   lifecycle {
-     ignore_changes = [password]
-   }
+    ignore_changes = [password]
+  }
 }
 
 # change USERDATA varible value after grabbing RDS endpoint info
@@ -214,22 +212,12 @@ resource "aws_eip" "eip" {
 
 }
 
-output "IP" {
-  value = aws_eip.eip.public_ip
-}
-output "RDS-Endpoint" {
-  value = aws_db_instance.wordpressdb.endpoint
-}
-
-output "INFO" {
-  value = "AWS Resources and Wordpress has been provisioned. Go to http://${aws_eip.eip.public_ip}"
-}
 
 resource "null_resource" "Wordpress_Installation_Waiting" {
-   # trigger will create new null-resource if ec2 id or rds is chnaged
-   triggers={
-    ec2_id=aws_instance.wordpressec2.id,
-    rds_endpoint=aws_db_instance.wordpressdb.endpoint
+  # trigger will create new null-resource if ec2 id or rds is changed
+  triggers = {
+    ec2_id       = aws_instance.wordpressec2.id,
+    rds_endpoint = aws_db_instance.wordpressdb.endpoint
 
   }
   connection {

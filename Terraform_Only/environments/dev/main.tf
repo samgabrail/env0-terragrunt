@@ -1,10 +1,19 @@
+terraform {
+  backend "s3" {
+    bucket         = "<your_bucket_name>"
+    key            = "terraform.tfstate"
+    region         = "<your_aws_region>"
+    dynamodb_table = "<your_dynamo_dbtable_name>"
+  }
+}
+
 module aws_wordpress {
     source              = "./modules/wordpress"
     database_name           = "wordpress_db"   // database name
     database_user           = "wordpress_user" //database username
     // Password here will be used to create master db user.It should be chnaged later
-    database_password = "PassWord4-user" //password for user database
-    region                  = "us-east-1" //sydney region
+    database_password = "dev-PassWord4-user" //password for user database
+    region                  = "us-east-1" 
     IsUbuntu                = true             // true for ubuntu,false for linux 2  //boolean type
     // avaibility zone and their CIDR
     AZ1          = "us-east-1a" // for EC2

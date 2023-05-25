@@ -1,32 +1,23 @@
-variable "region" {
-  description = "AWS region"
-}
+variable "database_name" {}
+variable "database_password" {}
+variable "database_user" {}
 
-variable "environment" {
-  description = "Environment name (e.g. dev, prod)"
-}
+variable "region" {}
+variable "IsUbuntu" {
+  type    = bool
+  default = true
 
-variable "vpc_cidr_block" {
-  description = "CIDR block for the VPC"
 }
+variable "AZ1" {}
+variable "AZ2" {}
+variable "AZ3" {}
+variable "VPC_cidr" {}
+variable "subnet1_cidr" {}
+variable "subnet2_cidr" {}
+variable "subnet3_cidr" {}
+variable "instance_type" {}
+variable "instance_class" {}
+variable "PUBLIC_KEY_PATH" {}
+variable "PRIV_KEY_PATH" {}
+variable "root_volume_size" {}
 
-variable "public_subnet_cidr_blocks" {
-  description = "List of CIDR blocks for public subnets"
-  type        = list(string)
-}
-
-variable "ami_id" {
-  description = "AMI ID for the EC2 instance"
-}
-
-variable "instance_type" {
-  description = "Instance type for the EC2 instance"
-}
-
-variable "db_instance_class" {
-  description = "Instance class for the RDS instance"
-}
-
-variable "db_password" {
-  description = "Password for the RDS instance"
-}
