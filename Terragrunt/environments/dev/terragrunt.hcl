@@ -2,10 +2,6 @@ include {
   path = find_in_parent_folders()
 }
 
-terraform {
-  source = "../../modules//wordpress"
-}
-
 inputs = {
   // Password here will be used to create master db user.It should be chnaged later
   database_password = "dev-PassWord4-user" //password for user database

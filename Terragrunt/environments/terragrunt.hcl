@@ -9,6 +9,10 @@ remote_state {
   }
 }
 
+terraform {
+  source = "../../modules//wordpress"
+}
+
 inputs = {
   ami_id        = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI
   database_name = "wordpress_db"          // database name
