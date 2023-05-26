@@ -33,6 +33,16 @@ ssh-keygen -f mykey-pair
 sudo chmod 400 mykey-pair
 ```
 
+Then run the following terragrunt commands:
+
+```bash
+terragrunt init
+terragrunt plan
+terragrunt apply
+```
+
+Terragrunt sets the AWS remote backend for you. It will create an S3 bucket and a Dynamo DB table.
+
 ## Clean Up
 
 Terragrunt has a neat feature that allows you to run commands across multiple folders. In our case we will run the following command to destroy the dev and prod environments:
